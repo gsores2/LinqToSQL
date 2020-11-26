@@ -204,7 +204,6 @@ namespace LinqToSQL
                     /// 
                     db.ChangeConflicts.ResolveAll(RefreshMode.OverwriteCurrentValues); // ora una volta risolti se aggiorno il db locale ok, altrimenti negli atltri due casi devo mandare modifiche al db
                
-                
                     db.SubmitChanges(); // lo dò perchè se ho KeepCurrent Values o KeepChange lui sa come risolverlo ma non ho aggiornato database 
 
                 
