@@ -10,7 +10,12 @@ namespace LinqToSQL
     {
         static void Main(string[] args)
         {
-            const string connectionString = @"Persist Security Info=false; Integrated Security=true; Initial Catalog = CinemaDb; Server = WINAP4R3GZJOYFF\SQLEXPRESS";
+            // Esercizi.SelectMovies();
+            // Esercizi.FilterMovieByGenere();
+            //Esercizi.InsertMovie();
+            //Esercizi.DeleteMovie();
+
+            Esercizi.UpdateMovieByTitolo(); 
 
         }
     }

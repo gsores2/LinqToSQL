@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CinemaDb" Class="CinemaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=WINAP4R3GZJOYFF\SQLEXPRESS;Initial Catalog=CinemaDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False" SettingsObjectName="LinqToSQL.Properties.Settings" SettingsPropertyName="CinemaDbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Actors" Member="Actors">
+    <Type Name="Actor">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Birthdate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Cachet" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Association Name="Actor_Cast" Member="Casts" ThisKey="ID" OtherKey="ActorId" Type="Cast" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Casts" Member="Casts">
+    <Type Name="Cast">
+      <Column Name="MovieId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ActorId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Actor_Cast" Member="Actor" ThisKey="ActorId" OtherKey="ID" Type="Actor" IsForeignKey="true" />
+      <Association Name="Movy_Cast" Member="Movy" ThisKey="MovieId" OtherKey="ID" Type="Movy" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Movies" Member="Movies">
+    <Type Name="Movy">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Titolo" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Genere" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Durata" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Movy_Cast" Member="Casts" ThisKey="ID" OtherKey="MovieId" Type="Cast" />
+      <Association Name="Movy_Programmazione" Member="Programmaziones" ThisKey="ID" OtherKey="MovieID" Type="Programmazione" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Prenotazione" Member="Prenotaziones">
+    <Type Name="Prenotazione">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Numero_posti" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Mail" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ProgrammazioneID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Programmazione_Prenotazione" Member="Programmazione" ThisKey="ProgrammazioneID" OtherKey="ID" Type="Programmazione" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Programmazione" Member="Programmaziones">
+    <Type Name="Programmazione">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MovieID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SalaID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Orario" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Prezzo" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="Posti_Disponibili" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Programmazione_Prenotazione" Member="Prenotaziones" ThisKey="ID" OtherKey="ProgrammazioneID" Type="Prenotazione" />
+      <Association Name="Movy_Programmazione" Member="Movy" ThisKey="MovieID" OtherKey="ID" Type="Movy" IsForeignKey="true" />
+      <Association Name="Sale_Programmazione" Member="Sale" ThisKey="SalaID" OtherKey="ID" Type="Sale" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sale" Member="Sales">
+    <Type Name="Sale">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Posti" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Sale_Programmazione" Member="Programmaziones" ThisKey="ID" OtherKey="SalaID" Type="Programmazione" />
+    </Type>
+  </Table>
+</Database>
